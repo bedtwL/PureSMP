@@ -1,0 +1,4 @@
+name: PureSMP
+version: '${project.version}'
+main: me.bedtwL.oss.PureSMP
+folia-supported: true
