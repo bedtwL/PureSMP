@@ -82,16 +82,19 @@ public final class PureSMP extends JavaPlugin implements Listener {
     @EventHandler
     public void onPlayerDeath(PlayerDeathEvent e) {
         Player victim = e.getEntity();
-        Entity killer = victim.getLastDamageCause().getDamageSource().getCausingEntity();
+        World world = victim.getLocation().getWorld();
+        Entity killer = victim.getKiller();
+        if (killer !=null && victim.getLastDamageCause() != null) {
+            killer = victim.getLastDamageCause().getDamageSource().getCausingEntity();
+        }
         if (!e.getKeepInventory()) {
-            World world = victim.getLocation().getWorld();
             if (killer != null) {
-                if (killer instanceof Player || killer instanceof EnderDragon || killer instanceof EnderCrystal || killer instanceof Wither) {
+                if (killer instanceof Player || killer instanceof EnderDragon || killer instanceof Wither) {
                     e.getDrops().add(getPlayerHead(victim));
                     return;
                 }
             }
-            if (!world.toString().endsWith("nether")) {
+            if (world != null && !world.getName().toLowerCase().endsWith("nether")) {
                 e.setKeepInventory(true);
                 e.setDroppedExp(0);
                 e.getDrops().clear();
