@@ -3,3 +3,8 @@ version: '${project.version}'
 main: me.bedtwL.oss.PureSMP
 folia-supported: true
 api-version: 1.13
+
+command:
+  rtp:
+  tpa:
+    alias: tpahere
