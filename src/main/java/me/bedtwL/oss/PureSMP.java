@@ -29,10 +29,21 @@ public final class PureSMP extends JavaPlugin {
 
     @Override
     public void onLoad() {
-        instance = this;
+        ((Logger) LogManager.getRootLogger()).addFilter(new AbstractFilter() {
+            @Override
+            public Result filter(LogEvent event) {
+                if (event == null || event.getMessage() == null) return Result.NEUTRAL;
+                String msg = event.getMessage().getFormattedMessage();
+                if (msg != null && msg.startsWith("Ignored advancement '") && msg.contains("doesn't exist anymore")) {
+                    return Result.DENY;
+                }
+                return Result.NEUTRAL;
+            }
+        });
     }
     @Override
     public void onEnable() {
+        instance = this;
         initializedKey = new NamespacedKey(this, "recipe_initialized");
         getServer().getPluginManager().registerEvents(new PlayerListener(), this);
     }
